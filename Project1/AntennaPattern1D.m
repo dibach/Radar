@@ -3,9 +3,9 @@ function E2 = AntennaPattern1D(x_y, dn, lamda, pointing, win)
     k = 2*pi/lamda;
     
     
-%     zenith_pt = pointing(:,2);
-%     azimuthal_pt = pointing(:,1);
-%     a0 = [sin(zenith_pt).*cos(azimuthal_pt) sin(zenith_pt).*sin(azimuthal_pt) cos(zenith_pt)];
+    %zenith_pt = atan(sqrt(tan(pointing(:,1)).^2 + tan(pointing(:,2)).^2));
+    %azimuthal_pt = atan(tan(pointing(:,2))./tan(pointing(:,1)));
+    %a0 = [sin(zenith_pt).*cos(azimuthal_pt) sin(zenith_pt).*sin(azimuthal_pt) cos(zenith_pt)];
     a0 = pointing;
     E = zeros(length(x_y(:,1)));
     for i=1:size(x_y(:,1),1),
@@ -22,4 +22,4 @@ function E2 = AntennaPattern1D(x_y, dn, lamda, pointing, win)
         end;
     end;
 E2 = 10*log10((E.*conj(E)).^2);
-E2 = E2 - max(E2(:,1));
+% E2 = E2 - max(E2(:,1));
