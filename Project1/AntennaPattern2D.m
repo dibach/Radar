@@ -8,7 +8,7 @@ function E2 = AntennaPattern2D(x_y, dn, lamda, a0, win)
     for i=1:size(x_y(:,1),1),
         for m=1:size(x_y(:,2),1),
             zenith = atan(sqrt(tan(x_y(i,1)).^2 + tan(x_y(m,2)).^2));
-            azimuthal = atan(tan(x_y(m,2))./tan(x_y(i,1)));
+            azimuthal = atan2(tan(x_y(m,2)), tan(x_y(i,1)));
             ar = [sin(zenith).*cos(azimuthal) sin(zenith).*sin(azimuthal) cos(zenith)];
             a = repmat((ar - a0),N,1);
 %             Esum = 0;
@@ -19,5 +19,5 @@ function E2 = AntennaPattern2D(x_y, dn, lamda, a0, win)
           E(i,m) = sum(win.*exp(1i*k.*dot(a,dn,2)));
         end;
     end;
-E2 = 10*log10((E.*conj(E)).^2);
+E2 = 10*log10((E.*conj(E)));
 E2 = E2 - max(max(E2));
